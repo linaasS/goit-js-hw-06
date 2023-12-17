@@ -3,28 +3,22 @@ const loginForm = document.querySelector('.login-form');
 loginForm.addEventListener('submit', function(event) {
   event.preventDefault();
 
-  const formData = this.elements;
-
+  const formData = new FormData(this);
   const formValues = {};
 
-  for (let i = 0; i < formData.length; i++) {
-    const element = formData[i];
-
-    if (element.type !== 'submit') {
-      formValues[element.name] = element.value;
-    }
+  for (let [name, value] of formData) {
+    formValues[name] = value;
   }
 
-  const email = formValues['email'];
-  const password = formValues['password'];
+  const { email, password } = formValues;
 
   if (!email || !password) {
     alert('Будь ласка, заповніть всі поля');
     return;
   }
 
-  const formDataObject = { email, password };
-  console.log(formDataObject);
+  const userData = { email, password };
+  console.log(userData);
 
   this.reset();
 });
